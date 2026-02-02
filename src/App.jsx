@@ -292,7 +292,7 @@ function App() {
             </div>
             <div className="space-y-5">
             {[
-              { name: 'Nikhil Kamath', trait: 'Financial Strategy', img: 'https://scontent-dub4-1.xx.fbcdn.net/v/t39.30808-6/481785888_10161457011232807_8336352777056062863_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=22fna3LM8PEQ7kNvwHjWPfH&_nc_oc=Adk0rWX4dnsCRavP8XWDTefWSuA21QGb_dq6hy2izmy4Bk3mPvWAD1XHzX0f3yqIVHM3X1gNrhKXEK0sjyKj-53W&_nc_zt=23&_nc_ht=scontent-dub4-1.xx&_nc_gid=pRSdz69HJVficWv4XFcXBg&oh=00_AfpgzKPa5S_OityK4416X1Fsy1K7L4Yc5xs8jsQslFCZeA&oe=69801D86' },
+              { name: 'Nikhil Kamath', trait: 'Financial Strategy', img: 'https://images.forbesindia.com/blog/wp-content/uploads/media/images/2023/Jun/img_209295_zerodhakamathbrothers-0037_bg.jpg?im=Resize,width=500,aspect=fit,type=normal' },
               { name: 'Friedrich Nietzsche', trait: 'Philosophy', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Nietzsche187c.jpg/330px-Nietzsche187c.jpg' },
               { name: 'Ram Gopal Varma', trait: 'Creative Realism', img: 'https://upload.wikimedia.org/wikipedia/commons/c/cd/RamGopalVarma.jpg' }
             ].map(person => (
