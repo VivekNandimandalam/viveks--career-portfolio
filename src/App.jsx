@@ -252,7 +252,7 @@ function App() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-emerald-500/30 transition-all duration-300">
               <div className="flex items-center gap-4">
-                <img src="/src/microsoft_logo.jpg" alt="Microsoft" className="w-10 h-10 object-contain" loading="lazy" />
+                <img src="/microsoft_logo.jpg" alt="Microsoft" className="w-10 h-10 object-contain" loading="lazy" />
                 <div>
                   <div className="text-sm font-bold text-white">Microsoft Certified: Azure Fundamentals</div>
                   <a href="https://learn.microsoft.com/en-us/users/viveknandimandalam-1700/credentials/d01cd2bd4a48807f?ref=https%3A%2F%2Fwww.linkedin.com%2F" target="_blank" rel="noopener noreferrer" className="text-emerald-400 text-xs">View Credential</a>
@@ -262,7 +262,7 @@ function App() {
 
             <div className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-emerald-500/30 transition-all duration-300">
               <div className="flex items-center gap-4">
-                <img src="/src/datadog_logo.jpg" alt="Datadog" className="w-10 h-10 object-contain" loading="lazy" />
+                <img src="/datadog_logo.jpg" alt="Datadog" className="w-10 h-10 object-contain" loading="lazy" />
                 <div>
                   <div className="text-sm font-bold text-white">DataDog Fundamentals</div>
                   <div className="text-xs text-slate-400">Issued: April 04, 2025 — Expires: April 04, 2028</div>
@@ -273,7 +273,7 @@ function App() {
 
             <div className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-emerald-500/30 transition-all duration-300">
               <div className="flex items-center gap-4">
-                <img src="/src/redwood_software_logo.jpg" alt="REDWOOD" className="w-10 h-10 object-contain" loading="lazy" />
+                <img src="/redwood_software_logo.jpg" alt="REDWOOD" className="w-10 h-10 object-contain" loading="lazy" />
                 <div>
                   <div className="text-sm font-bold text-white">RUNMYJOBS AUTOMATION DEVELOPER SPECIALIST</div>
                   <a href="https://drive.google.com/file/d/1ZxvusSMN-0cMJM4cA4GTRMP5KEZBX4AR/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="text-emerald-400 text-xs">View Certificate</a>
