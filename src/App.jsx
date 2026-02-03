@@ -7,6 +7,7 @@ function App() {
   const [visitorName, setVisitorName] = useState('');
   const [visitorEmail, setVisitorEmail] = useState('');
   const [message, setMessage] = useState('');
+  const [isSending, setIsSending] = useState(false);
   const projects = [
     {
       id: 1,
@@ -89,6 +90,48 @@ function App() {
     }
   ];
 
+  // sendMessage handler centralizes sending logic and prevents duplicate sends
+  const sendMessage = async () => {
+    if (isSending) return;
+    if (!visitorName.trim() || !message.trim()) {
+      alert('Please enter your name and message.');
+      return;
+    }
+
+    setIsSending(true);
+    try {
+      const apiBase = import.meta.env.VITE_API_BASE_URL || 'http://localhost:4000';
+      const res = await fetch(`${apiBase}/api/send-whatsapp`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message,
+          visitorName: visitorName.trim(),
+          visitorEmail: visitorEmail.trim(),
+        }),
+      });
+
+      const data = await res.json().catch(() => ({}));
+      console.log('Server response:', { status: res.status, data });
+
+      if (res.ok && data.ok) {
+        alert("✅ Message sent! I'll get back to you soon.");
+        setVisitorName('');
+        setVisitorEmail('');
+        setMessage('');
+        setChatOpen(false);
+      } else {
+        console.error('Message failed:', data);
+        alert(`❌ Error: ${data.error || 'Unknown error'}\n\nDetails: ${data.details || data.error_message || 'Check console'}`);
+      }
+    } catch (err) {
+      console.error('Fetch error:', err);
+      alert(`❌ Error sending message:\n${err.message}\n\nIs the server running on ${import.meta.env.VITE_API_BASE_URL || 'http://localhost:4000'}?`);
+    } finally {
+      setIsSending(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#0b0e14] text-slate-300 p-4 md:p-8 font-sans selection:bg-emerald-500/30">
       {/* Navigation Ticker */}
@@ -109,9 +152,15 @@ function App() {
       </nav>
 
       <main className="max-w-7xl mx-auto space-y-8">
-        
+
         {/* Profile / Summary Card - Full Width */}
-        <div className="bg-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur-xl hover:bg-white/[0.07] hover:border-white/20 transition-all duration-500 shadow-2xl">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className="bg-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur-xl hover:bg-white/[0.07] hover:border-white/20 transition-all duration-500 shadow-2xl"
+        >
           <span className="text-emerald-400 font-mono text-xs mb-4 uppercase tracking-widest flex items-center gap-2">
             <span className="w-1 h-1 bg-emerald-400 rounded-full"></span> Executive Summary
           </span>
@@ -121,7 +170,7 @@ function App() {
           <p className="text-slate-400 text-base md:text-lg leading-relaxed max-w-4xl">
             I build intelligent systems that solve real-world problems. Entrepreneur at heart, engineer by trade. Always researching new technologies and architecting scalable solutions that drive impact.
           </p>
-        </div>
+        </motion.div>
 
         {/* Core Competencies - Horizontal Layout */}
         <div className="bg-white/5 border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300">
@@ -388,7 +437,13 @@ function App() {
 
       {/* Footer / Contact CTA */}
       <footer className="max-w-7xl mx-auto mt-20 border-t border-white/5 pt-8 pb-12">
-        <div className="text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.65 }}
+          className="text-center"
+        >
           <p className="text-slate-400 text-sm mb-4">Ready to build something extraordinary together?</p>
           <button 
             onClick={() => setChatOpen(true)}
@@ -396,7 +451,7 @@ function App() {
             Get In Touch
           </button>
           <p className="text-slate-500 text-xs mt-8">© 2025 Vivek Nandimandalam. All rights reserved.</p>
-        </div>
+        </motion.div>
       </footer>
 
       {/* WhatsApp Chat Modal */}
@@ -459,47 +514,28 @@ function App() {
                 className="w-full bg-white/5 border border-white/10 rounded-lg p-4 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-emerald-500 resize-none h-24 transition-colors duration-300"
               />
 
-              <button
-                onClick={async () => {
-                  if (!visitorName.trim() || !message.trim()) {
-                    alert('Please enter your name and message.');
-                    return;
-                  }
-                  try {
-                    console.log('Sending message:', { visitorName, visitorEmail, message });
-                    const apiBase =
-                      import.meta.env.VITE_API_BASE_URL || 'http://localhost:4000';
-                    const res = await fetch(`${apiBase}/api/send-whatsapp`, {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify({ 
-                        message, 
-                        visitorName: visitorName.trim(), 
-                        visitorEmail: visitorEmail.trim() 
-                      }),
-                    });
-                    const data = await res.json();
-                    console.log('Server response:', { status: res.status, data });
-                    if (res.ok && data.ok) {
-                      alert('✅ Message sent! I\'ll get back to you soon.');
-                    } else {
-                      console.error('Message failed:', data);
-                      alert(`❌ Error: ${data.error || 'Unknown error'}\n\nDetails: ${data.details || data.error_message || 'Check console'}`);
-                    }
-                  } catch (err) {
-                    console.error('Fetch error:', err);
-                    alert(`❌ Error sending message:\n${err.message}\n\nIs the server running on localhost:4000?`);
-                  }
-                  setVisitorName('');
-                  setVisitorEmail('');
-                  setMessage('');
-                  setChatOpen(false);
-                }}
-                className="w-full bg-emerald-500 text-black font-bold py-3 rounded-lg hover:bg-emerald-400 transition-all duration-300 flex items-center justify-center gap-2 hover:shadow-[0_0_20px_rgba(16,185,129,0.3)]"
+              <motion.button
+                onClick={sendMessage}
+                whileTap={{ scale: 0.97 }}
+                disabled={isSending}
+                aria-busy={isSending}
+                aria-disabled={isSending}
+                className={`w-full bg-emerald-500 text-black font-bold py-3 rounded-lg flex items-center justify-center gap-2 transition-all duration-300 ${
+                  isSending
+                    ? 'opacity-60 cursor-not-allowed'
+                    : 'hover:bg-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.3)]'
+                }`}
               >
-                <Send size={16} />
-                Send via WhatsApp
-              </button>
+                {isSending ? (
+                  <svg className="animate-spin h-4 w-4 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+                  </svg>
+                ) : (
+                  <Send size={16} />
+                )}
+                {isSending ? 'Sending...' : 'Send via WhatsApp'}
+              </motion.button>
 
               <p className="text-slate-500 text-xs text-center">or email me at <a href="mailto:viveknandimandalam334@gmail.com" className="text-emerald-400 hover:underline">viveknandimandalam334@gmail.com</a></p>
             </div>
