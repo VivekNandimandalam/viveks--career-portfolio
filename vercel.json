@@ -10,14 +10,5 @@
       "source": "/(.*)",
       "destination": "/index.html"
     }
-  ],
-  "env": {
-    "TWILIO_ACCOUNT_SID": "@twilio_account_sid",
-    "TWILIO_AUTH_TOKEN": "@twilio_auth_token",
-    "TWILIO_WHATSAPP_FROM": "@twilio_whatsapp_from",
-    "OWNER_WHATSAPP": "@owner_whatsapp",
-    "GMAIL_USER": "@gmail_user",
-    "GMAIL_PASS": "@gmail_pass",
-    "OWNER_EMAIL": "@owner_email"
-  }
+  ]
 }
