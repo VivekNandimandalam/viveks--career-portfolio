@@ -43,9 +43,9 @@ export default async function handler(req, res) {
   try {
     const { visitorName, visitorEmail, message } = req.body;
 
-    // Validation
-    if (!visitorName || !visitorEmail || !message) {
-      return res.status(400).json({ error: 'Missing required fields' });
+    // Validation - email is optional
+    if (!visitorName || !message) {
+      return res.status(400).json({ error: 'Name and message are required fields' });
     }
 
     if (!twilioClient && !gmailTransporter) {
